@@ -1,0 +1,17 @@
+version: "0.1.0"
+services:
+  kbbot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - Bot__Token=BotTokenHere
+      - Bot__MonitoredNodes__0__Address=NodeAddressHere
+      - Bot__MonitoredNodes__0__ChatIdsToPostTo__0=ChatIdHere
+      - Bot__MonitoredNodes__0__ChatIdsToPostTo__1=ChatIdHere
+      - Bot__MonitoredNodes__1__Address=NodeAddressHere
+      - Bot__MonitoredNodes__1__ChatIdsToPostTo__0=ChatIdHere
+      - Bot__MonitoredNodes__1__ChatIdsToPostTo__1=ChatIdHere
+      - Serilog__MinimumLevel__Default=Information
+      - Serilog__WriteTo__0__Args__path=Logs/log.txt
