@@ -2,7 +2,7 @@
 This repository holds the ```docker-compose.yml``` used to run the Knights' Bay Bot for LTO node operators.
 The can currently do 3 things:
 1. Respond to ```/price``` and respond with the current LTO token price.
-2.Respond to ```/lambo``` and display the prices of different lambos in $LTO
+2. Respond to ```/lambo``` and display the prices of different lambos in $LTO
 3. Post information automatically to your Telegram groups whenever your node(s) builds a block, gets a new lease, or gets a lease canceled.
 
 ### Example messages
