@@ -1,5 +1,5 @@
 # Knights' Bay Bot
-This repository holds the ```docker-compose.yml``` used to run the Knights' Bay Bot for LTO node operators.
+This repository holds the ```docker-compose.yml``` used to run the [Knights' Bay Bot](https://github.com/murmeel/KnightsBayBot) for LTO node operators.
 The can currently do 3 things:
 1. Respond to ```/price``` and respond with the current LTO token price.
 2. Respond to ```/lambo``` and display the prices of different lambos in $LTO
@@ -41,22 +41,27 @@ Keep in mind that indentation and spacing matters in this file! So when adding/e
 1. First we declare what services we want to start. In this case, we only want to start our bot, but in some cases there are other services you'd want to start. The service can be named anything, but default is ```kbbot```.
 2. Next we have the ```container_name:```, which names the container that docker starts. This can also be named whatever you want.
 3. Next is the ```image:```. This specifies what image to use, stored in the docker hub. The image for this bot is ```murmeel/knights-bay-bot:latest```.
-4. Lastly, we have the ```environment:```. Here goes all the settings for your bot. It's a bit scuffed, I know, but works pretty good. 
-    - ```Bot__Token=``` speaks for itself, your bot token goes here.
-    - ```Bot__MonitoredNodes__0__Address=``` is where you put your first (maybe only) LTO node address.
-    - ```Bot__MonitoredNodes__0__ChatIdsToPostTo__0=``` is where you put a Chat Id the bot should post block and lease info to, related to the node specified in                       ```MonitoredNodes__0__Address```.
-    - ```Bot__MonitoredNodes__0__ChatIdsToPostTo__1=``` is wher you put <b>another</b> Chat Id the bot should post info to, related to the node specified in                           ```MonitoredNodes__0__Address``` (```...MonitoredNodes__0``` indicates what node the chat belongs to. Add as many chat ids as you want).
-    - ```Bot__MonitoredNodes__1__Address=``` is where you put your <b>second</b> (if you have it) LTO node address.
-    - ```Bot__MonitoredNodes__1__ChatIdsToPostTo__0=``` is where you put a Chat Id the bot should post block and lease info to, related to the node specified in                       ```MonitoredNodes__1__Address```.
-    - ```Bot__MonitoredNodes__0__PostStartedLease=``` indicates if you want the bot to post when a new lease is started for the specified node.
-    - ```Bot__MonitoredNodes__0__PostCanceledLease=``` indicates if you want the bot to post when a lease is canceled for the specified node.
-    - etc...
+4. Lastly, we have the ```environment:```. Here goes all the settings for your bot.
+    
+    A quick note - multiple nodes can be specified to be monitored. They are specified uniquely by increasing the number after ```MonitoredNodes__``` (starting at 0).
+    This is also true for the chat ids, where you specify each chat id uniquely by increasing the number after ```ChatIdsToPostTo__``` (starting at 0). 
+    
+    
+    | Setting name | Description |
+    |:-|:-|
+    |```Bot__Token=```|your bot token goes here|
+    |```Bot__MonitoredNodes__0__Address=```|your first (maybe only) LTO node address|
+    |```Bot__MonitoredNodes__0__ChatIdsToPostTo__0=```|chat id the bot should post block and lease info to, related to the specified (0) node|
+    |```Bot__MonitoredNodes__0__ChatIdsToPostTo__1=```|<b>another</b> chat id the bot should post info to, related to the specified (0) node|
+    |```Bot__MonitoredNodes__1__Address=```|your <b>second</b> (if you have it) LTO node address|
+    |```Bot__MonitoredNodes__1__ChatIdsToPostTo__0=```|chat id the bot should post block and lease info to, related to the specified (1) node|
+    |```Bot__MonitoredNodes__0__PostStartedLease=```|if you want the bot to post when a new lease is started for the specified (0) node ```(default=true)```|
+    |```Bot__MonitoredNodes__0__PostCanceledLease=```|if you want the bot to post when a lease is canceled for the specified (0) node ```(default=false)```|
+    |```Network__Lto__ApiUri=```|points to mainnet or testnet api ```(default=https://nodes.lto.network/)```|
+    |```Serilog__MinimumLevel__Default=```|what log level to use ```(default=Information)```|
+    |```Serilog__WriteTo__0__Args__path=```|sets where the log gets stored ```(default=Logs/log.txt)```|
     
     In this way, you can monitor any amount of nodes, and have the bot post to any amount of chats related to that node.
-    
-    - ```Network__Lto__ApiUri=``` is pointing towards mainnet by default. You can point this to testnet if you want (https://testnet.lto.network/), to monitor nodes on the             testnet!
-    - ```Serilog__MinimumLevel__Default=``` (optional) sets logging level. Information is default, ```Debug``` can be used for some additional logging.
-    - ```Serilog__WriteTo__0__Args__path=``` (optional) sets where the log gets stored.
     
 That covers the basic settings, and with that, your bot should be all ready to go. When added to your group, it will only respond to the ```/price``` and ```/lambo``` messages, nothing else (also works if you message the bot directly).
 
