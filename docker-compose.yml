@@ -2,18 +2,21 @@ services:
   kbbot:
     container_name: tg-lto-bot
     image: murmeel/knights-bay-bot:latest
+    volumes:
+      - ./kbbot-logs/:Logs/
     environment:
       - Bot__Token=BotTokenHere
       - Bot__MonitoredNodes__0__Address=1stNodeAddressHere
       - Bot__MonitoredNodes__0__ChatIdsToPostTo__0=1stChatIdFor1stNodeHere
       - Bot__MonitoredNodes__0__ChatIdsToPostTo__1=2ndChatIdFor1stNodeHere
+      - Bot__MonitoredNodes__0__PostStartedLease=true
+      - Bot__MonitoredNodes__0__PostCanceledLease=true
+      - Bot__MonitoredNodes__0__OnlyPostDailyBlockSummary=false
+      - Bot__MonitoredNodes__0__UtcHourToPostSummary=20
       - Bot__MonitoredNodes__1__Address=2ndNodeAddressHere
       - Bot__MonitoredNodes__1__ChatIdsToPostTo__0=1stChatIdFor2ndNodeHere
       - Bot__MonitoredNodes__1__ChatIdsToPostTo__1=2ndChatIdFor2ndNodeHere
       - Network__Lto__ApiUri=https://nodes.lto.network/
-      - Network__KuCoin__ApiKey=KuCoinApiKeyHere
-      - Network__KuCoin__ApiSecret=KuCoinApiSecretHere
-      - Network__KuCoin__ApiPassPhrase=KuCoinApiPassPhraseHere
       - Network__CoinMarketCap__ApiKey=CoinMarketCapApiKeyHere
       - Serilog__MinimumLevel__Default=Information
       - Serilog__WriteTo__0__Args__path=Logs/log.txt
